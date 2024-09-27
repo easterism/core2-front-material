@@ -526,7 +526,7 @@ var edit = {
 			var size  = edit.modal2.options[key].size || '' ;
 
 			$('#main_body').append(
-				'<div class="modal fade" tabindex="-1" id="' + key + '-modal">' +
+				'<div class="modal fade"  id="' + key + '-modal">' +
 					'<div class="modal-dialog ' + size + '">' +
 						'<div class="modal-content">' +
 							'<div class="modal-header">' +
