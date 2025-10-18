@@ -669,7 +669,7 @@ $(document).ajaxError(function (event, jqxhr, settings, exception) {
 		swal('Доступ закрыт! Если вы уверены, что вам сюда можно, обратитесь к администратору.', '', 'error').catch(swal.noop);
 	} else if (jqxhr.statusText === 'error') {
         swal("Отсутствует соединение с Интернет.", '', 'error').catch(swal.noop);
-    } else if (jqxhr.status === 403) {
+    } else if (jqxhr.status === 401) {
         swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
     } else {
 		//swal("Ой, извините!", "Во время обработки вашего запроса произошла ошибка.", 'error').catch(swal.noop);
@@ -1452,7 +1452,7 @@ $.ui.autocomplete.prototype._renderItem = function( ul, item) {
 	if (term) {
 		term = term.replace(new RegExp('[.\\\\+*?\\[\\^\\]$(){}=!<>|:\\' + '' + '-]', 'g'), '\\$&');
 
-		var re = new RegExp("(" + term + ")", "gi");
+		const re = new RegExp("(" + term + ")", "gi");
 		t = t.replace(re, "<b>$1</b>");
 	}
 
@@ -1489,7 +1489,7 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 					for (i in evt) {
 						document.dispatchEvent(new CustomEvent("Core2", {'detail': evt[i]}));
 					}
-					console.log(evt)
+					//console.log(evt)
 					break;
 
 				default:
@@ -1514,7 +1514,6 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 		(e) => {
 			e.detail.forEach(function (data){
 				const e = JSON.parse(data);
-				// console.log(e)
 				if (e.element) {
 					$(e.element.selector).html(e.element.text);
 				}
