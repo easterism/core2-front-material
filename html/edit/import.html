@@ -3,6 +3,11 @@
         <thead>
         <tr>
             <td>
+                <!-- BEGIN checked_all -->
+                <label>
+                    <input type="checkbox" class="checked-all">
+                </label>
+                <!-- END checked_all -->
             </td>
             <!-- BEGIN column -->
             <td>
@@ -16,7 +21,12 @@
         <tr>
             <td class="row-number">
                 <label>
+                    <!-- BEGIN checked_row -->
+                    <input type="checkbox" value="[ROW_NUMBER]">
+                    <!-- END checked_row -->
+                    <!-- BEGIN start_row -->
                     <input type="radio" value="[ROW_NUMBER]">
+                    <!-- END start_row -->
                 </label>
             </td>
             <!-- BEGIN cell -->
@@ -32,5 +42,7 @@
 Всего строк: [TOTAL_ROWS]
 
 <script>
-    edit.fieldImport.init('[FIELD]');
+    edit.fieldImport.init('[FIELD]', {
+        rowSelect: "[ROW_SELECT]"
+    });
 </script>
