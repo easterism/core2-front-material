@@ -104,13 +104,22 @@ a {color: #337AB7}
             transition: left 0.3s ease-in-out;
 }
 #navbar-top .navbar-right {
-    float: right;
+    position: relative;
+    width: calc(100% - 50px);
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
     margin-right: 0;
 }
 .navbar-header {
     float: left;
+    z-index: 2;
 }
 #main-content > .navbar-default {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap;
     background-color: #FFFFFF;
     border: none;
 }
@@ -150,7 +159,7 @@ a {color: #337AB7}
     color: #dae5eb;
     position: relative;
     display: block;
-    padding: 10px 10px 10px 16px;
+    padding: 5px 10px 5px 16px;
     text-decoration: none;
     text-align: left;
     direction: ltr;
