@@ -70,7 +70,7 @@
 	<script src="core2/html/material/js/class.list.js?_=7"></script>
 	<script src="core2/html/material/js/class.edit.js?_=28"></script>
 	<script src="core2/js/eTip.js"></script>
-	<script src="core2/html/material/js/main.js?_=18"></script>
+	<script src="core2/html/material/js/main.js?_=19"></script>
     <!--[if IE]>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
     <![endif]-->

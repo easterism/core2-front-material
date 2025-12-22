@@ -1016,6 +1016,21 @@ function removePDF() {
  */
 var loadExt = function (url) {
 	preloader.show();
+
+	if (url.indexOf('#') >= 0) {
+		let urlSplit = url.split('#');
+		urlSplit[0] = urlSplit[0].indexOf('?') >= 0
+			? urlSplit[0] + '&_=' +  Math.floor(Math.random() * 1000000)
+			: urlSplit[0] + '?_=' +  Math.floor(Math.random() * 1000000);
+
+		url = urlSplit.join('#');
+
+	} else {
+		url = url.indexOf('?') >= 0
+			? url + '&_=' +  Math.floor(Math.random() * 1000000)
+			: url + '?_=' +  Math.floor(Math.random() * 1000000);
+	}
+
 	$("#main_body").prepend(
 	    '<div class="ext-panel hidden">' +
 			'<div class="ext-main-panel"><iframe id="core-iframe" frameborder="0" width="100%" height="100%" src="' + url + '"></iframe></div>' +
