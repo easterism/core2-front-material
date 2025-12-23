@@ -204,6 +204,7 @@ TOP MENU
     left: 50px;
 }
 .navbar-header .module-action {
+    background: #fff;
     padding-left: 15px;
     font-size: 12px;
     color: #666;

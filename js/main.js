@@ -873,7 +873,7 @@ var load = function (url, data, id, callback) {
             mod_title = '';
         }
 
-        var css_mod_title = action_title === ''
+        var css_mod_title = action_title === '' && mod_title !== ''
             ? {'fontSize': '18px', 'paddingTop': '15px','lineHeight': '20px'}
             : {'fontSize': '',     'paddingTop': '',    'lineHeight': ''};
 

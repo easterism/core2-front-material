@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="core2/html/material/css/animate.min.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/snarl.min.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/menu.css?_=10" type="text/css"/>
-	<link rel="stylesheet" href="core2/html/material/css/styles.css?_=45" type="text/css"/>
+	<link rel="stylesheet" href="core2/html/material/css/styles.css?_=46" type="text/css"/>
 
 	<link rel="stylesheet" href="core2/html/material/css/select2.bootstrap.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/select2.min.css" type="text/css"/>
@@ -64,7 +64,7 @@
 	<script src="core2/html/material/js/class.list.js?_=7"></script>
 	<script src="core2/html/material/js/class.edit.js?_=28"></script>
 	<script src="core2/js/eTip.js"></script>
-	<script src="core2/html/material/js/main.js?_=19"></script>
+	<script src="core2/html/material/js/main.js?_=20"></script>
     <link rel="icon" type="image/png" href="favicon.png"/>
 	<!--[if lte IE 7]>
 	<style type="text/css">.iefix {display: inline-block;width: 0;overflow: hidden;}</style>
