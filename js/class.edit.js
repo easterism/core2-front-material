@@ -237,6 +237,17 @@ var edit = {
 	},
 
 
+	/**
+	 * @param {HTMLElement} checkbox
+	 * @param {string}      fieldName
+	 */
+	checkboxAll: function (checkbox, fieldName) {
+
+		let isChecked = $(checkbox).prop('checked');
+		$('input[type=checkbox][name="control[' + fieldName + '][]"]').prop('checked', isChecked);
+	},
+
+
 	changeForm: {
 
 		_forms: {},
@@ -439,6 +450,12 @@ var edit = {
 					inputTitle.removeAttr('disabled');
 				}
 
+				inputTitle.blur(function() {
+					if ( ! inputValue.val()) {
+						inputTitle.val('');
+					}
+				});
+
 				let lastRequest = null;
 				inputTitle.autocomplete({
 					source: function (request, response) {
@@ -474,10 +491,6 @@ var edit = {
 					},
 					close: function( event, ui ) {
 						event.preventDefault();
-
-						if ( ! inputValue.val()) {
-							inputTitle.val('');
-						}
 					},
 					create: function (event, ui) {
 						$(this).data('ui-autocomplete')._renderItem = function (ul, item) {

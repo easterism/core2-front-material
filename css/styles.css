@@ -195,6 +195,7 @@ TOP MENU
 	padding-right:5px;
 }
 .navbar-header .module-title {
+    background: #fff;
     padding: 8px 15px 5px 15px;
     font-size: 15px;
     line-height: 15px;
@@ -203,6 +204,7 @@ TOP MENU
     left: 50px;
 }
 .navbar-header .module-action {
+    background: #fff;
     padding-left: 15px;
     font-size: 12px;
     color: #666;

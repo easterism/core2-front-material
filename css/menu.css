@@ -104,13 +104,22 @@ a {color: #337AB7}
             transition: left 0.3s ease-in-out;
 }
 #navbar-top .navbar-right {
-    float: right;
+    position: relative;
+    width: calc(100% - 50px);
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
     margin-right: 0;
 }
 .navbar-header {
     float: left;
+    z-index: 2;
 }
 #main-content > .navbar-default {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap;
     background-color: #FFFFFF;
     border: none;
 }
@@ -362,7 +371,7 @@ a {color: #337AB7}
         left: 0;
         right: 0;
         bottom: 0;
-        padding: 30px 30px 30px;
+        padding: 20px 30px 30px;
     }
     #main #mainContainer #main_body {
         width: -moz-min-content;
