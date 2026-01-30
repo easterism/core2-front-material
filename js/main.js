@@ -669,7 +669,7 @@ $(document).ajaxError(function (event, jqxhr, settings, exception) {
 		swal('Доступ закрыт! Если вы уверены, что вам сюда можно, обратитесь к администратору.', '', 'error').catch(swal.noop);
 	} else if (jqxhr.statusText === 'error') {
         swal("Отсутствует соединение с Интернет.", '', 'error').catch(swal.noop);
-    } else if (jqxhr.status === 401) {
+    } else if (jqxhr.status === 403) {
         swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
     } else {
 		//swal("Ой, извините!", "Во время обработки вашего запроса произошла ошибка.", 'error').catch(swal.noop);
@@ -873,7 +873,7 @@ var load = function (url, data, id, callback) {
             mod_title = '';
         }
 
-        var css_mod_title = action_title === ''
+        var css_mod_title = action_title === '' && mod_title !== ''
             ? {'fontSize': '18px', 'paddingTop': '15px','lineHeight': '20px'}
             : {'fontSize': '',     'paddingTop': '',    'lineHeight': ''};
 
@@ -1018,7 +1018,7 @@ var loadExt = function (url) {
 	preloader.show();
 	$("#main_body").prepend(
 	    '<div class="ext-panel hidden">' +
-			'<div class="ext-main-panel"><iframe id="core-iframe" frameborder="0" width="100%" height="100%" src="' + url + '"></iframe></div>' +
+			'<div class="ext-main-panel"><iframe id="core-iframe" allow="clipboard-write" frameborder="0" width="100%" height="100%" src="' + url + '"></iframe></div>' +
         '</div>'
 
 	);
@@ -1074,6 +1074,71 @@ async function fetchDataAndUpdateElement(obj) {
 		console.error('Error:', error);
 		obj.innerHTML = '<div class="alert alert-danger">' + error + '</div>';
 	}
+}
+
+async function core2Clip(elem) {
+	const textToCopy = elem.dataset.copy || elem.textContent || elem.innerText || elem.value;
+
+	const wrapper = document.createElement('div');
+	wrapper.className = 'copyable-wrapper';
+	elem.parentNode.insertBefore(wrapper, elem);
+	wrapper.appendChild(elem);
+
+	const copyIcon = document.createElement('span');
+	copyIcon.className = 'copy-icon';
+	//copyIcon.innerHTML = '📋';
+	copyIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" class="g-icon" fill="currentColor" stroke="none" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M12 2.5H8A1.5 1.5 0 0 0 6.5 4v1H8a3 3 0 0 1 3 3v1.5h1A1.5 1.5 0 0 0 13.5 8V4A1.5 1.5 0 0 0 12 2.5M11 11h1a3 3 0 0 0 3-3V4a3 3 0 0 0-3-3H8a3 3 0 0 0-3 3v1H4a3 3 0 0 0-3 3v4a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3zM4 6.5h4A1.5 1.5 0 0 1 9.5 8v4A1.5 1.5 0 0 1 8 13.5H4A1.5 1.5 0 0 1 2.5 12V8A1.5 1.5 0 0 1 4 6.5" clip-rule="evenodd"></path></svg></svg>';
+	copyIcon.title = 'Копировать текст';
+	wrapper.appendChild(copyIcon);
+
+	copyIcon.addEventListener('click', async (e) => {
+		e.stopPropagation();
+
+		try {
+			await navigator.clipboard.writeText(textToCopy);
+
+			// Визуальная обратная связь
+			const originalText = copyIcon.innerHTML;
+			copyIcon.innerHTML = '✅';
+			copyIcon.style.background = '#4CAF50';
+
+			setTimeout(() => {
+				copyIcon.innerHTML = originalText;
+				copyIcon.style.background = '';
+			}, 1500);
+
+		} catch (err) {
+			// Fallback для старых браузеров
+			console.error('Ошибка копирования:', err);
+			const textArea = document.createElement('textarea');
+			textArea.value = textToCopy;
+			textArea.style.position = 'fixed';
+			textArea.style.opacity = '0';
+			document.body.appendChild(textArea);
+			textArea.focus();
+			textArea.select();
+
+			try {
+				const successful = document.execCommand('copy');
+				if (successful) {
+					const originalText = copyIcon.innerHTML;
+					copyIcon.innerHTML = '✅';
+					copyIcon.style.background = '#4CAF50';
+
+					setTimeout(() => {
+						copyIcon.innerHTML = originalText;
+						copyIcon.style.background = '';
+					}, 1500);
+				}
+			} catch (err) {
+				console.error('Fallback: Ошибка копирования', err);
+				alert('Не удалось скопировать текст');
+			}
+
+			document.body.removeChild(textArea);
+		}
+	});
+
 }
 
 
@@ -1408,6 +1473,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
 						const urls = nod.querySelectorAll("[data-url]");
 						for (const elem of urls) {
 							fetchDataAndUpdateElement(elem);
+						}
+						const cpy = nod.querySelectorAll("[data-copy]");
+						for (const elem of cpy) {
+							//core2Clip(elem);
+							console.log(elem)
 						}
 					}
 				}
