@@ -1033,7 +1033,7 @@ var loadExt = function (url) {
 
 	$("#main_body").prepend(
 	    '<div class="ext-panel hidden">' +
-			'<div class="ext-main-panel"><iframe id="core-iframe" allow="clipboard-write" frameborder="0" width="100%" height="100%" src="' + url + '"></iframe></div>' +
+			'<div class="ext-main-panel"><iframe id="core-iframe" allow="clipboard-read; clipboard-write *; camera *; microphone *" frameborder="0" width="100%" height="100%" src="' + url + '"></iframe></div>' +
         '</div>'
 
 	);
