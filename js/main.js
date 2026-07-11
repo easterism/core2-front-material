@@ -1514,12 +1514,38 @@ document.addEventListener("DOMContentLoaded", function (e) {
 				for (const nod of mutation.addedNodes) {
 					if (nod instanceof Element) {
 						const elems = nod.querySelectorAll("[data-hotkey]");
+						const iframes = nod.querySelectorAll("iframe");
+
 						for (const elem of elems) {
 							if (elem.getAttribute('listener') !== 'true') {
 								const hotkey = $(elem).data('hotkey')
 								keymaps[hotkey] = elem;
 								elem.setAttribute('listener', 'true');
 							}
+						}
+						for (const ifr of iframes) {
+							if (ifr.id == 'core-iframe') continue;
+							ifr.onload = function() {
+								//если это наш iframe, наблюдаем за его изменениями
+                                const iframeDocument = ifr.contentDocument || ifr.contentWindow.document;
+                                if (iframeDocument) {
+                                    const iframeObserver = new MutationObserver(function (mutations) {
+                                        console.log('Контент изменился! Количество мутаций:', mutations.length);
+                                        // Пересчитываем высоту
+                                        const height = Math.max(
+                                            iframeDocument.body.scrollHeight,
+                                            iframeDocument.documentElement.scrollHeight
+                                        );
+                                        ifr.style.height = height + 'px';
+                                    });
+                                    iframeObserver.observe(iframeDocument.body, {
+                                        childList: true,
+                                        subtree: true,
+                                        attributes: true,
+                                        characterData: true,
+                                    });
+                                }
+                            }
 						}
 						const urls = nod.querySelectorAll("[data-url]");
 						for (const elem of urls) {
