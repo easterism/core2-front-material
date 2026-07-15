@@ -1530,7 +1530,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                                 const iframeDocument = ifr.contentDocument || ifr.contentWindow.document;
                                 if (iframeDocument) {
                                     const iframeObserver = new MutationObserver(function (mutations) {
-                                        console.log('Контент изменился! Количество мутаций:', mutations.length);
+                                        //console.log('Контент изменился! Количество мутаций:', mutations.length);
                                         // Пересчитываем высоту
                                         const height = Math.max(
                                             iframeDocument.body.scrollHeight,
