@@ -434,8 +434,8 @@ var listx = {
      */
     del: function (res, text, isAjax) {
         res = res.split('.');
-        var id = res[0];
-        var val = this.getCheked(id, true);
+        var resource = res[0];
+        var val = this.getCheked(resource, true);
         if (val) {
             if (val.length) {
                 swal({
@@ -448,14 +448,14 @@ var listx = {
                 }).then(
                     function(result) {
                         preloader.show();
-                        $("#main_" + id + "_error").hide();
+                        $("#main_" + resource + "_error").hide();
                         var container = '';
                         if (isAjax) {
-                            container = document.getElementById("list" + id).parentNode;
+                            container = document.getElementById("list" + resource).parentNode;
                         }
-                        if (listx.loc[id]) {
-                            const parts = listx.loc[id].split('php?');
-                            const paramsString = parts.length > 1 ? parts[1] : listx.loc[id];
+                        if (listx.loc[resource]) {
+                            const parts = listx.loc[resource].split('php?');
+                            const paramsString = parts.length > 1 ? parts[1] : listx.loc[resource];
                             const searchParams = new URLSearchParams(paramsString);
                             const module       = searchParams.get("module");
                             let action         = searchParams.get("action");
@@ -467,15 +467,15 @@ var listx = {
                             $.ajax({
                                 method: "DELETE",
                                 dataType: "json",
-                                url: module + "/" + action + "/" + id + "?" + res[1] + "." + res[2] + "=" + val
+                                url: module + "/" + action + "/" + resource + "?table=" + res[1] + "&field=" + res[2] + "&value=" + val
 
                             }).success(function (data) {
                                 if (data && data.error) {
                                     var msg = data.error ? data.error : "Не удалось выполнить удаление";
-                                    $("#main_" + id + "_error").html(msg);
-                                    $("#main_" + id + "_error").show();
+                                    $("#main_" + resource + "_error").html(msg);
+                                    $("#main_" + resource + "_error").show();
                                 } else {
-                                    var loc = listx.loc[id];
+                                    var loc = listx.loc[resource];
                                     if (data) {
                                         if (data.notice) {
                                             CoreUI.notice.create(data.notice);
@@ -488,7 +488,7 @@ var listx = {
                                     load(loc, '', container, function () {
                                         if (listx.reloadEvents.length > 0) {
                                             $.each(listx.reloadEvents, function () {
-                                                if (this.list_id === id) {
+                                                if (this.list_id === resource) {
                                                     this.func();
                                                 }
                                             })

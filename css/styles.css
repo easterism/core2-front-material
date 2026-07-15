@@ -1328,7 +1328,7 @@ label.control-label {font-weight: 700}
     width: 235px;
 }
 .modal-control .modal-control-button {height: 30px}
-.modal-control .input-group {min-width: 350px}
+.modal-control .input-group {min-width: 290px}
 .ctrl-dpr-controls > *,
 .ctrl-dtp-controls > *,
 .ctrl-tp-controls > * ,

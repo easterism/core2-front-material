@@ -323,6 +323,15 @@ var Core2 = {
 		});
 	},
 
+
+	/**
+	 * Перезагрузка страницы
+	 */
+	reload: function () {
+		Core2.load('index.php?' + location.hash.substring(1));
+	},
+
+
 	tools: {
 
 		/**

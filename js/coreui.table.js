@@ -1299,10 +1299,10 @@ CoreUI.table = {
                             container   = wrapper ? wrapper.parentNode : null;
                         }
 
-                        let loc            = CoreUI.table.loc[resource];
-                        const searchParams = new URLSearchParams(loc);
-                        const module       = searchParams.get("module");
-                        let action         = searchParams.get("action");
+                        const url = new URL(CoreUI.table.loc[resource], location.origin);
+
+                        const module = url.searchParams.get("module");
+                        let action   = url.searchParams.get("action");
 
                         if ( ! action) {
                             action = 'index';
@@ -1312,7 +1312,7 @@ CoreUI.table = {
                         $.ajax({
                             method: "DELETE",
                             dataType: "json",
-                            url: module + "/" + action + "/" + resource + "?" + res[1] + "." + res[2] + "=" + val
+                            url: module + "/" + action + "/" + resource + "?table=" + res[1] + "&field=" + res[2] + "&value=" + val
                         }).success(function (data) {
                             if (data && data.error) {
                                 var msg = data.error ? data.error : "Не удалось выполнить удаление";
